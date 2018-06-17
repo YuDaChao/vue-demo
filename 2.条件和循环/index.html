@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vue-条件和循环</title>
+</head>
+<body>
+<div id="app1">
+    <span v-if="seen">Vue v-if</span>
+</div>
+<hr/>
+<div id="app2">
+    <ol>
+        <li v-for="todo in todos">
+            {{ todo.text }}
+        </li>
+    </ol>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script type="application/javascript">
+    const app1 = new Vue({
+      el: '#app1',
+      data: {
+        seen: true
+      }
+    })
+    const app2 = new Vue({
+      el: '#app2',
+      data: {
+        todos: [
+          { text: '学习 JavaScript' },
+          { text: '学习 Vue' },
+          { text: '整个牛项目' }
+        ]
+      }
+    })
+</script>
+</body>
+</html>

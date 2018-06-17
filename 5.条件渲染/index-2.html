@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vue-条件渲染</title>
+</head>
+<body>
+<div id="app">
+    <input type="text" v-model="searchText">
+    <ul>
+        <li v-for="(person, index) in filterPersons" :key="index">
+            {{person.name}} --- {{person.age}}
+            <button @click="deletePerson(index)">删除</button>
+            <button @click="update(index, {name: 'Yudc', age: 20})">修改</button>
+        </li>
+    </ul>
+
+</div>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script type="application/javascript">
+    new Vue({
+      el: '#app',
+      data: {
+        searchText: '',
+        persons: [
+          {name: 'Tom', age: 21},
+          {name: 'Jack', age: 24},
+          {name: 'mery', age: 22},
+        ]
+      },
+      computed: {
+        filterPersons() {
+          const { searchText, persons} = this;
+          let filterPersonList = persons.filter(person => person.name.indexOf(searchText) > -1);
+
+          return filterPersonList
+        }
+      },
+      methods: {
+        deletePerson(index) {
+          this.persons.splice(index, 1)
+        },
+        update(index, person) {
+          this.persons.splice(index, 1, person)
+        }
+      }
+    })
+</script>
+</body>
+</html>

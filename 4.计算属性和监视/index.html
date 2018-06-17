@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vue-计算属性和监视</title>
+</head>
+<body>
+<div id="app">
+    姓: <input type="text" placeholder="First Name" v-model="FirstName"><br>
+    名: <input type="text" placeholder="Last Name" v-model="LastName"><br>
+    姓名1(单向): <input type="text" placeholder="Full Name 1" v-model="FullName1"><br>
+    姓名2(单向): <input type="text" placeholder="Full Name 2" v-model="FullName2"><br>
+    姓名3(双向): <input type="text" placeholder="First Name 3" v-model="FullName3"><br>
+    <p>{{FullName1}}</p>
+    <p>{{FullName1}}</p>
+    <p>{{FullName1}}</p>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script type="application/javascript">
+    const app = new Vue({
+      el: '#app',
+      data: {
+        FirstName: 'yu',
+        LastName: 'dachao',
+      },
+      // 计算
+      computed: {
+        FullName1() {
+          return this.FirstName + " " + this.LastName
+        },
+        FullName2() {
+          return this.FirstName + " " + this.LastName
+        },
+        FullName3: {
+          get() {
+            return this.FirstName + " " + this.LastName
+          },
+          set(value) {
+            const nameArr = value.split(' ');
+            this.FirstName = nameArr[0];
+            this.LastName = nameArr[1]
+          }
+        }
+      },
+      // 监视
+      watch: { //配置监视
+        // 监视的属性名
+        FirstName: function (newVal, oldVal) {
+          console.log("watch FirstName", newVal, oldVal);
+          this.FullName3 = newVal + " " + this.LastName
+        },
+      }
+    })
+
+    // app.$watch('LastName', function (value) {
+    //   this.FullName2 = this.FirstName + " " + value
+    // })
+</script>
+</body>
+</html>
